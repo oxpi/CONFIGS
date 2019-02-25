@@ -1,0 +1,32 @@
+//Maya Preference 2015 (Release 1)
+//
+//
+
+runTimeCommand
+	-annotation "select"
+	-category "Modeling Toolkit"
+	-commandLanguage "mel"
+	-command ("dR_DoCmd(\"selectSuperContext\")")
+	selectTool;
+
+runTimeCommand
+	-annotation "toggleIsoSelection"
+	-category "User"
+	-commandLanguage "mel"
+	-command ("\n//Toggle Isolate Selected in Current Panel\n$currentPanel = `getPanel -withFocus`;\n$state = `isolateSelect -q -state $currentPanel`;\nif ($state == \"0\")\n\t{\n   \tenableIsolateSelect $currentPanel 1; \n\t}\nelse\n\t{\n   \tenableIsolateSelect $currentPanel 0;\n\t}\n")
+	toggleIsoSelection;
+
+runTimeCommand
+	-annotation "shelfButtons (Press)"
+	-category "User Marking Menus"
+	-commandLanguage "mel"
+	-command ("if (`popupMenu -exists tempMM`) { deleteUI tempMM; }\npopupMenu -button 1 -ctl false -alt false -sh false -allowOptionBoxes true -parent `findPanelPopupParent` -mm 1 tempMM; \nsource \"menu_shelfButtons\";\n")
+	shelfButtons_Press;
+
+runTimeCommand
+	-annotation "shelfButtons (Release)"
+	-category "User Marking Menus"
+	-commandLanguage "mel"
+	-command ("if (`popupMenu -exists tempMM`) { deleteUI tempMM; }")
+	shelfButtons_Release;
+

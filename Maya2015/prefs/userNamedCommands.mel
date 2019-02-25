@@ -1,0 +1,94 @@
+//Maya Preference 2015 (Release 1)
+//
+//
+
+nameCommand
+	-annotation "PolyConvertToRingAndCollapseNameCommand"
+	-sourceType "mel"
+	-command ("PolyConvertToRingAndCollapse")
+	PolyConvertToRingAndCollapseNameCommand;
+
+nameCommand
+	-annotation "PolygonCollapseEdgesNameCommand"
+	-sourceType "mel"
+	-command ("PolygonCollapseEdges")
+	PolygonCollapseEdgesNameCommand;
+
+nameCommand
+	-annotation "HideUnselectedObjectsNameCommand"
+	-sourceType "mel"
+	-command ("HideUnselectedObjects")
+	HideUnselectedObjectsNameCommand;
+
+nameCommand
+	-annotation "UnfoldUVNameCommand"
+	-sourceType "mel"
+	-command ("UnfoldUV")
+	UnfoldUVNameCommand;
+
+nameCommand
+	-annotation "SelectComponentToolMarkingMenuNameCommand"
+	-sourceType "mel"
+	-command ("SelectComponentToolMarkingMenu")
+	SelectComponentToolMarkingMenuNameCommand;
+
+nameCommand
+	-annotation "TransformNoSelectOffToolNameCommand"
+	-sourceType "mel"
+	-command ("TransformNoSelectOffTool")
+	TransformNoSelectOffToolNameCommand;
+
+nameCommand
+	-annotation "TransformNoSelectOnToolNameCommand"
+	-sourceType "mel"
+	-command ("TransformNoSelectOnTool")
+	TransformNoSelectOnToolNameCommand;
+
+nameCommand
+	-annotation "dR_selectPressNameCommand"
+	-sourceType "mel"
+	-command ("dR_selectPress")
+	dR_selectPressNameCommand;
+
+nameCommand
+	-annotation "dR_selectToolNameCommand"
+	-sourceType "mel"
+	-command ("dR_selectTool")
+	dR_selectToolNameCommand;
+
+nameCommand
+	-annotation "selectToolNameCommand"
+	-sourceType "mel"
+	-command ("selectTool")
+	selectToolNameCommand;
+
+nameCommand
+	-annotation "SelectToolNameCommand"
+	-sourceType "mel"
+	-command ("SelectTool")
+	SelectToolNameCommand;
+
+nameCommand
+	-annotation "toggleIsoSelectionNameCommand"
+	-sourceType "mel"
+	-command ("toggleIsoSelection")
+	toggleIsoSelectionNameCommand;
+
+nameCommand
+	-annotation "Display Control HUD"
+	-sourceType "mel"
+	-command ("bt_displayControl")
+	bt_displayControlHUDNamedCommand;
+
+nameCommand
+	-annotation "shelfButtons_PressNameCommand"
+	-sourceType "mel"
+	-command ("shelfButtons_Press")
+	shelfButtons_PressNameCommand;
+
+nameCommand
+	-annotation "shelfButtons_ReleaseNameCommand"
+	-sourceType "mel"
+	-command ("shelfButtons_Release")
+	shelfButtons_ReleaseNameCommand;
+

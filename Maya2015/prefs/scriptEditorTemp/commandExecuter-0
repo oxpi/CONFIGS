@@ -1,0 +1,161 @@
+
+
+from UVDeluxe import uvdeluxe
+uvdeluxe.createUI()
+
+
+from UVDeluxe import masterExploder 
+reload (masterExploder)
+masterExploder.CreateMasterExploderUI()
+###---masterExploder 0.1---###
+#To run:
+#import masterExploder
+#reload (masterExploder)
+#masterExploder.CreateMasterExploderUI()
+
+### INITIALIZE ###
+
+#import maya commands
+import maya.cmds as cmds
+
+#list selected objects
+selectedMeshes = cmds.ls(selection=True)
+if len(selectedMeshes) == 0:
+    cmds.error("Nothing Selected!")
+
+
+### SORT PROCEDURE ###
+
+#assign the objects to display layers
+def layerMeshes(layerName,activeMesh):
+    #if no approperiate layer exists create it
+    if cmds.objExists(layerName + "_Layer") == False:
+        cmds.createDisplayLayer(n=layerName + "_Layer", e=True)
+    #assign the objects to existing layer
+    cmds.editDisplayLayerMembers(layerName + "_Layer", activeMesh)
+
+#sort the objects into display layers based on suffix
+def sortMeshes():
+    for meshes in selectedMeshes:
+        if "_high" in meshes: #try to replace "_highpoly" with ("_highpoly", "_HP", etc, etc)
+            layerMeshes("Highpoly",meshes)
+        elif "_low" in meshes:
+            layerMeshes("Lowpoly",meshes)
+        elif "_cage" in meshes:
+            layerMeshes("Cage",meshes)
+        elif "_blocker" in meshes:
+            layerMeshes("Blocker",meshes)
+        else:
+            cmds.warning(meshes + " is not a valid name!")  
+
+
+#### MOVE PROCEDURE ####
+
+#move the objects in X 
+def offsetMesh(offsetAmount,inputMeshes):
+    for object in inputMeshes:
+        if cmds.objExists(object):
+            cmds.move(offsetAmount, object, x=True)
+            print("Moving " + object + " to X: ", offsetAmount)
+        else:
+            pass
+
+#assemble a list of shared names
+def makeLists():
+    #reference objects in lowpoly layer as source
+    lowpolyList = cmds.editDisplayLayerMembers("Lowpoly_Layer", query=True)
+    print("List of Lowpoly Meshes:",lowpolyList)
+    
+    #remove Shape nodes from list
+    for shapeNode in lowpolyList:
+        if "Shape" in shapeNode:
+            lowpolyList.remove(shapeNode)
+    print("Removing Shape Nodes:", lowpolyList)
+
+    #remove _lowpoly suffix to have only object name
+    meshNames = [name.replace("_lowpoly","") for name in lowpolyList]
+    print("Shared names:",meshNames)
+    return meshNames
+
+def setKeys(frame):
+    cmds.setKeyframe(t=frame,at="translateX")
+    cmds.currentTime(frame)
+
+def explode(offsetInput=1):
+    #Get list of meshes
+    nameList = makeLists()
+    setKeys(1)
+    #set initial offset value
+    offset = 0
+
+    #generate matching names and offset them together
+    for names in nameList:
+        #reconstruct names from the shared names list
+        lowpolyName = names + "_lowpoly"
+        highpolyName = names + "_highpoly"
+        cageName = names + "_cage"
+        blockerName = names + "_blocker"
+
+        #move the matching objects together
+        print(">>Moving: "+names)
+        offsetMesh(offset, (lowpolyName,highpolyName,cageName,blockerName))
+
+        #increase offset value by the input value for each loop
+        offset += offsetInput
+    setKeys(10)
+
+def masterExploder(input):
+    print("----------------## masterExploder START ##---------------------")
+    print("Debug Output:")
+    sortMeshes()
+    explode(input)
+    print("----------------## masterExploder END ##---------------------")
+
+### GUI ###
+
+def CreateMasterExploderUI ():
+    result = cmds.promptDialog(title='Master Exploder v0.1',
+                                message='Offset By:',
+                                button=['OK', 'Cancel'],
+                                defaultButton='OK',
+                                cancelButton='Cancel',
+                                dismissString='Cancel')
+
+    if result == 'OK':
+            value = cmds.promptDialog(query=True, text=True)
+            masterExploder(int(value))
+
+#def getOffsetInput (value,*args):
+#    intValue = cmds.intField("inputField", query=True)
+#    print intValue
+#    #masterExploder(intValue)
+#
+#def CreateMasterExploderUI ():
+#    #check if UI exists
+#    if cmds.window("masterExploderUI", exists=True):
+#        cmds.deleteUI("masterExploderUI")
+#
+#    #create UI
+#    window = cmds.window("masterExploderUI",
+#                         title = "Master Exploder v0.1",
+#                         sizeable = False)
+#
+#    #layout
+#    mainLayout = cmds.columnLayout(w=150, h =50)
+#
+#    #Text label
+#    cmds.text(label="Offset Amount:")
+#
+#    #offset input
+#    cmds.intField("inputField",
+#                  value=1,
+#                  w=250)
+#
+#    #Execute button
+#    cmds.button(label="Explode!",
+#                w=250,
+#                command= getOffsetInput)
+#
+#    #show UI
+#    cmds.showWindow(window)
+
