@@ -1,0 +1,12 @@
+//ZBRUSH MACRO - Recorded in ZBrush version 4.7
+[IButton,???,"Press to run this macro. Macros can be aborted by pressing the ëescí key.",
+[IShowActions,0]
+[IConfig,4.7]
+[IPress,Tool:Masking:MaskByFeature]
+[IPress,Tool:Masking:GrowMask]
+[IPress,Tool:Masking:Inverse]
+[ISet,Tool:Deformation:Inflate,0]
+[ISet,Tool:Deformation:Inflate,0]
+[ISet,Tool:Deformation:Polish By Groups,100]
+[CanvasStroke,(ZObjStrokeV03n13%p92DA68p-7105058Pn-3167n109BnFAA3sAD23950sAD23950sAD23950z7F99=YH33EVE2K2XH342VEAH348VF7H34EV100H353V10DH359V118H35DV121H360V127H362V12CH363V12EH364V12FH364V130H364V130)]
+]
